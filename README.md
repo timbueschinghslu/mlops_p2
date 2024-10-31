@@ -1,2 +1,2 @@
-# mlops_p3
+# mlops_p2
 MLOPS Course Project @HSLU
