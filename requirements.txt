@@ -1,6 +1,8 @@
-torch
-transformers
-lightning
-datasets
-wandb
-evaluate
+pytorch-lightning==2.4.0
+torch==2.5.1
+torchmetrics==1.5.1
+transformers==4.46.2
+lightning==2.4.0
+datasets==3.1.0
+wandb==0.18.5
+evaluate==0.4.3
