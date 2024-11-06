@@ -267,6 +267,11 @@ if __name__ == "__main__":
         default_root_dir=args.checkpoint_dir  # Directory for model checkpoints
     )
 
+    if torch.backends.mps.is_available():
+        print("Using MPS for training")
+    else:
+        print("MPS not available, using CPU")
+    
     # Train the model
     trainer.fit(model, datamodule=dm)
     wandb.finish()

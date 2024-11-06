@@ -16,4 +16,4 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 COPY train.py train.py
 
 # Set default command to run a single training
-CMD ["python", "glue_training_script.py", "--checkpoint_dir", "/app/models", "--lr", "5e-5", "--warmup_steps", "13", "--weight_decay", "0.02", "--train_batch_size", "32", "--task_name", "mrpc", "--model_name_or_path", "distilbert-base-uncased"]
+CMD ["python", "train.py", "--checkpoint_dir", "/app/models", "--lr", "5e-5", "--warmup_steps", "13", "--weight_decay", "0.02", "--train_batch_size", "32", "--task_name", "mrpc", "--model_name_or_path", "distilbert-base-uncased"]
