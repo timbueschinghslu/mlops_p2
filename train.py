@@ -1,4 +1,6 @@
 import argparse
+from datetime import datetime
+from typing import Optional
 from dotenv import load_dotenv
 import os
 import wandb
@@ -6,7 +8,6 @@ import datasets
 import torch
 import evaluate
 import lightning as L
-from datetime import datetime
 from lightning.pytorch.loggers import WandbLogger
 from torch.utils.data import DataLoader
 from transformers import (
@@ -124,7 +125,6 @@ class GLUEDataModule(L.LightningDataModule):
         return features
 
 class GLUETransformer(L.LightningModule):
-    class GLUETransformer(L.LightningModule):
     def __init__(
         self,
         model_name_or_path: str,
@@ -235,7 +235,7 @@ if __name__ == "__main__":
     load_dotenv()
     wandb_api_key = os.getenv("WANDB_API_KEY")
 
-    # Initialize Weights & Biases
+    wandb.login(key=wandb_api_key)
     wandb.init(project="p2_mlops", config=args)
 
     # Prepare data module and model
@@ -258,19 +258,22 @@ if __name__ == "__main__":
 
     # Setup Trainer with Weights & Biases logger
     wandb_logger = WandbLogger(project="p2_mlops")
+
+    if torch.backends.mps.is_available():
+        accelerator = "mps"
+        print("Using MPS for training")
+    else:
+        accelerator = "cpu"
+        print("MPS not available, using CPU")
+
     trainer = L.Trainer(
         max_epochs=3,
-        accelerator="mps",
+        accelerator=accelerator,
         devices=1,
         logger=wandb_logger,
         gradient_clip_val=1.0,
-        default_root_dir=args.checkpoint_dir  # Directory for model checkpoints
+        default_root_dir=args.checkpoint_dir  
     )
-
-    if torch.backends.mps.is_available():
-        print("Using MPS for training")
-    else:
-        print("MPS not available, using CPU")
     
     # Train the model
     trainer.fit(model, datamodule=dm)
