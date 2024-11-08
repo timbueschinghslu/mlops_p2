@@ -236,7 +236,9 @@ if __name__ == "__main__":
     wandb_api_key = os.getenv("WANDB_API_KEY")
 
     wandb.login(key=wandb_api_key)
-    wandb.init(project="p2_mlops", config=args)
+    run_name = f"lr{args.lr}_bs{args.train_batch_size}_ws{args.warmup_steps}_wd{args.weight_decay}"
+    wandb.init(project="p2_mlops", config=args, name=run_name)
+
 
     # Prepare data module and model
     dm = GLUEDataModule(
@@ -259,12 +261,17 @@ if __name__ == "__main__":
     # Setup Trainer with Weights & Biases logger
     wandb_logger = WandbLogger(project="p2_mlops")
 
-    if torch.backends.mps.is_available():
+    if torch.cuda.is_available():
+        accelerator = "cuda"
+        print("Using CUDA for training")
+
+    elif torch.backends.mps.is_available():
         accelerator = "mps"
         print("Using MPS for training")
     else:
         accelerator = "cpu"
-        print("MPS not available, using CPU")
+        print("CUDA and MPS not available, using CPU")
+
 
     trainer = L.Trainer(
         max_epochs=3,
