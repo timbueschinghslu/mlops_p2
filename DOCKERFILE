@@ -15,7 +15,6 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 # Copy the training script into the container
 COPY train.py train.py
 
-ENV PYTORCH_ENABLE_MPS_FALLBACK=1
 
 # Set default command to run a single training
 CMD ["python", "train.py", "--checkpoint_dir", "/app/models", "--lr", "1e-4", "--warmup_steps", "16", "--weight_decay", "0.02", "--train_batch_size", "64", "--task_name", "mrpc", "--model_name_or_path", "distilbert-base-uncased"]
