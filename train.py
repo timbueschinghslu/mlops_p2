@@ -56,7 +56,7 @@ class GLUEDataModule(L.LightningDataModule):
 
     def __init__(
         self,
-        model_name_or_path: str,
+        model_name_or_path: str="distilbert-base-uncased",
         task_name: str = "mrpc",
         max_seq_length: int = 128,
         train_batch_size: int = 32,
@@ -93,7 +93,7 @@ class GLUEDataModule(L.LightningDataModule):
         AutoTokenizer.from_pretrained(self.model_name_or_path, use_fast=True)
 
     def train_dataloader(self):
-        return DataLoader(self.dataset["train"], batch_size=self.train_batch_size, shuffle=True)
+        return DataLoader(self.dataset["train"], batch_size=self.train_batch_size, num_workers=11, shuffle=True)
 
     def val_dataloader(self):
         if len(self.eval_splits) == 1:
@@ -228,8 +228,6 @@ if __name__ == "__main__":
     parser.add_argument("--warmup_steps", type=int, default=13, help="Number of warmup steps for learning rate scheduler")
     parser.add_argument("--weight_decay", type=float, default=0.02, help="Weight decay for optimizer")
     parser.add_argument("--train_batch_size", type=int, default=64, help="Training batch size")
-    parser.add_argument("--task_name", type=str, default="mrpc", help="GLUE task name")
-    parser.add_argument("--model_name_or_path", type=str, default="distilbert-base-uncased", help="Model name or path")
     args = parser.parse_args()
 
     load_dotenv()
@@ -242,8 +240,6 @@ if __name__ == "__main__":
 
     # Prepare data module and model
     dm = GLUEDataModule(
-        model_name_or_path=args.model_name_or_path,
-        task_name=args.task_name,
         train_batch_size=args.train_batch_size
     )
     dm.setup("fit")
@@ -252,10 +248,10 @@ if __name__ == "__main__":
         model_name_or_path=args.model_name_or_path,
         num_labels=dm.num_labels,
         eval_splits=dm.eval_splits,
-        task_name=dm.task_name,
         learning_rate=args.lr,
         weight_decay=args.weight_decay,
         warmup_steps=args.warmup_steps,
+        train_batch_size=args.train_batch_size
     )
 
     # Setup Trainer with Weights & Biases logger
