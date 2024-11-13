@@ -245,7 +245,8 @@ if __name__ == "__main__":
     dm.setup("fit")
 
     model = GLUETransformer(
-        model_name_or_path=args.model_name_or_path,
+        model_name_or_path=dm.model_name_or_path,
+        task_name=dm.task_name,
         num_labels=dm.num_labels,
         eval_splits=dm.eval_splits,
         learning_rate=args.lr,

@@ -20,14 +20,14 @@ cd <repository_directory>
 ### Building the Docker Image
 Build the Docker image using the provided Dockerfile:
 ```sh
-docker build -t mlops_p2_image .
+docker build -t mlops_p2 .
 ```
-This command builds the image and tags it as `mlops_p2_image`.
+This command builds the image and tags it as `mlops_p2`.
 
 ### Running the Docker Container
 Run the Docker container to start a training run:
 ```sh
-docker run --rm mlops_p2_image
+docker run --rm mlops_p2
 ```
 This command executes the training script with default hyperparameters as specified in the `CMD` instruction of the Dockerfile.
 
