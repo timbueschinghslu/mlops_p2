@@ -17,6 +17,7 @@ cd p2_mlops
 ```
 
 Before building the dockerfile: Create a `.env` file in the root directory with the following content:
+
 ```WANDB_API_KEY=<your_wandb_api_key>```
 
 ### Building the Docker Image
