@@ -8,8 +8,7 @@ This repository lets you train the distilbert-base-uncased model on the GLUE MRP
 ### Prerequisites
 - [Docker](https://www.docker.com/) installed on your local machine
 - Weight and Biases account with API key
-    - Create a `.env` file in the root directory with the following content:
-    ```WANDB_API_KEY=<your_wandb_api_key>```
+
 
 ### Clone the Repository
 ```sh
@@ -17,12 +16,15 @@ git clone https://github.com/timbueschinghslu/mlops_p2.git
 cd p2_mlops
 ```
 
+Before building the dockerfile: Create a `.env` file in the root directory with the following content:
+```WANDB_API_KEY=<your_wandb_api_key>```
+
 ### Building the Docker Image
 Build the Docker image using the provided Dockerfile:
 ```sh
 docker build -t mlops_p2 .
 ```
-This command builds the image and tags it as `mlops_p2`.
+
 
 ### Running the Docker Container
 Run the Docker container to start a training run:
@@ -33,7 +35,7 @@ This command executes the training script with default hyperparameters as specif
 
 Important: 
 - The `--rm` flag removes the container after the training run is finished. If you want to keep the container for debugging purposes, you can remove this flag.
-- To successfully run the docker container in GitHub Codespaces choose the machine with 4 Cores and 16GB of RAM.
+- To successfully run the docker container in GitHub Codespaces choose the machine with 4 Cores and 16GB of RAM during the setup.
 
 ### Passing Custom Hyperparameters
 You can override the default hyperparameters by specifying them in the `docker run` command:
