@@ -29,7 +29,11 @@ Run the Docker container to start a training run:
 ```sh
 docker run --rm --env-file .env mlops_p2
 ```
-This command executes the training script with default hyperparameters as specified in the `CMD` instruction of the Dockerfile. The best hyperparameters from the project 1 are set as default values.
+This command executes the training script with default hyperparameters as specified in the `CMD` instruction of the Dockerfile. The best hyperparameters from the project 1 are set as default values. The .env file is used to pass the Weights and Biases API key to the container.
+
+Important: 
+- The `--rm` flag removes the container after the training run is finished. If you want to keep the container for debugging purposes, you can remove this flag.
+- To successfully run the docker container in GitHub Codespaces choose the machine with 4 Cores and 16GB of RAM.
 
 ### Passing Custom Hyperparameters
 You can override the default hyperparameters by specifying them in the `docker run` command:
