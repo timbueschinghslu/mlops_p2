@@ -37,10 +37,3 @@ This command executes the training script with default hyperparameters as specif
 Important: 
 - The `--rm` flag removes the container after the training run is finished. If you want to keep the container for debugging purposes, you can remove this flag.
 - To successfully run the docker container in GitHub Codespaces choose the machine with 4 Cores and 16GB of RAM during the setup.
-
-### Passing Custom Hyperparameters
-You can override the default hyperparameters by specifying them in the `docker run` command:
-```sh
-docker run --rm mlops_p2 python train.py --checkpoint_dir /app/models --lr 1e-4 --warmup_steps 13 --weight_decay 0.02 --train_batch_size 128
-
-```
