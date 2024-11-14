@@ -27,7 +27,7 @@ This command builds the image and tags it as `mlops_p2`.
 ### Running the Docker Container
 Run the Docker container to start a training run:
 ```sh
-docker run --rm mlops_p2
+docker run --rm --env-file .env mlops_p2
 ```
 This command executes the training script with default hyperparameters as specified in the `CMD` instruction of the Dockerfile. The best hyperparameters from the project 1 are set as default values.
 
