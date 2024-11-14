@@ -20,6 +20,8 @@ Before building the dockerfile: Create a `.env` file in the root directory with 
 
 ```WANDB_API_KEY=<your_wandb_api_key>```
 
+Without the key logging to Weights & Biases will not work.
+
 ### Building the Docker Image
 Build the Docker image using the provided Dockerfile:
 ```sh
