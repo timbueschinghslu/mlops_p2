@@ -93,7 +93,7 @@ class GLUEDataModule(L.LightningDataModule):
         AutoTokenizer.from_pretrained(self.model_name_or_path, use_fast=True)
 
     def train_dataloader(self):
-        return DataLoader(self.dataset["train"], batch_size=self.train_batch_size, num_workers=11, shuffle=True)
+        return DataLoader(self.dataset["train"], batch_size=self.train_batch_size, shuffle=True)
 
     def val_dataloader(self):
         if len(self.eval_splits) == 1:
